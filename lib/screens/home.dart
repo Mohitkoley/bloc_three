@@ -1,3 +1,4 @@
+import 'package:bloc_three/Cubit/cubit/internet_cubit.dart';
 import 'package:bloc_three/blocs/bloc/internet_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,14 +13,14 @@ class Home extends StatelessWidget {
         centerTitle: true,
         title: const Text("Dummy"),
       ),
-      body: BlocConsumer<InternetBloc, InternetState>(
+      body: BlocConsumer<InternetCubit, InternetStates>(
         listener: (context, state) {
-          if (state is InternateGained) {
+          if (state == InternetStates.connected) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("internet Connected "),
               backgroundColor: Colors.green,
             ));
-          } else if (state is InternateLost) {
+          } else if (state == InternetStates.dissconnected) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("internet DissConnected "),
               backgroundColor: Colors.red,
@@ -27,12 +28,12 @@ class Home extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          switch (state.runtimeType) {
-            case InternateGained:
+          switch (state) {
+            case InternetStates.connected:
               return const Center(
                 child: Text("Connected"),
               );
-            case InternateLost:
+            case InternetStates.dissconnected:
               return const Center(
                 child: Text("Disconnected"),
               );
