@@ -1,4 +1,5 @@
 import 'package:bloc_three/screens/Sign_in/bloc/sign_in_bloc.dart';
+import 'package:bloc_three/screens/Sign_in/phone_auth/phone_auth_screen.dart';
 import 'package:bloc_three/screens/Sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +33,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Sign In with Google"),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => PhoneAuthScreen()));
+                    },
+                    child: Text("Sign In with Phone"),
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
@@ -50,7 +54,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     },
                     child: Text("Sign In with Email"),
                     style: ElevatedButton.styleFrom(
-                        minimumSize: Size(60, 50),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
                   ),
