@@ -21,8 +21,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PhoneAuthCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PhoneAuthCubit>(create: (context) => PhoneAuthCubit()),
+        BlocProvider<InternetCubit>(create: (context) => InternetCubit())
+      ],
       child: BlocBuilder<PhoneAuthCubit, PhoneAuthCubitState>(
         builder: (context, state) {
           if (state is AuthLoggedOutState) {
@@ -52,34 +55,30 @@ class MyApp extends StatelessWidget {
                   Home.routeName: (context) => const Home(),
                 });
           }
-          return BlocProvider(
-            create: (context) => InternetCubit(),
-            child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  primarySwatch: Colors.blue,
-                  inputDecorationTheme: InputDecorationTheme(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 3, color: Colors.deepPurple[300]!),
-                    ),
-                    border: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 3, color: Colors.amberAccent),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 3, color: Colors.amberAccent),
-                    ),
+
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+                primarySwatch: Colors.blue,
+                inputDecorationTheme: InputDecorationTheme(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(width: 3, color: Colors.deepPurple[300]!),
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(width: 3, color: Colors.amberAccent),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(width: 3, color: Colors.amberAccent),
                   ),
                 ),
-                home: const Home(),
-                routes: {
-                  Home.routeName: (context) => const Home(),
-                }),
-          );
+              ),
+              home: const Home(),
+              routes: {
+                Home.routeName: (context) => const Home(),
+              });
         },
       ),
     );
