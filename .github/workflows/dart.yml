@@ -7,9 +7,9 @@ name: Dart
 
 on:
   push:
-    branches: [ "bloc_with_firebase" ]
+    branches: [ "Bloc" ]
   pull_request:
-    branches: [ "bloc_with_firebase" ]
+    branches: [ "Bloc" ]
 
 jobs:
   build:
